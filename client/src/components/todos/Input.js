@@ -33,9 +33,24 @@ class Input extends Component {
   render() {
     let { action } = this.state;
     return (
-      <div>
-        <input type="text" onChange={this.handleChange} value={action} />
-        <button onClick={this.addTodo}>add todo</button>
+      <div className="row mb-3">
+        <div className="col-sm-1">
+          <input type="text" className="form-control-plaintext" id="staticEmail2" value="Todo" readOnly />
+        </div>
+        <div className="col-sm-4">
+          <input
+            className="form-control"
+            id="todo"
+            type="text"
+            onChange={this.handleChange}
+            value={action}
+          />
+        </div>
+        <div className="col-sm-2">
+          <button className="btn btn-primary" onClick={this.addTodo}>
+            add todo
+          </button>
+        </div>
       </div>
     );
   }

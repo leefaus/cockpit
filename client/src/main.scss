@@ -1,0 +1,28 @@
+// Brand Colors
+$blue: #25528d;
+$indigo: #6610f2;
+$purple: #6f42c1;
+$pink: #e83e8c;
+$red: #fc3c3c;
+$orange: #fd7e14;
+$yellow: #ffc107;
+$green: #68cf3b;
+$teal: #20c997;
+$cyan: #00adb5;
+$white: #fff;
+
+// Components
+$border-width: 1px;
+$border-radius: 0.1rem;
+$border-radius-lg: 0.15rem;
+$border-radius-sm: 0.05rem;
+
+@import "../node_modules/bootstrap/scss/bootstrap.scss";
+
+/*
+ * Globals
+ */
+
+ main > .container {
+  padding: 60px 15px 0;
+}
