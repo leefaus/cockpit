@@ -11,23 +11,20 @@ let done = function (err, result) {
   }
 };
 
-router.post("/webhooks/:id/:type", (req, res, next) => {
-  console.log(req.headers)
-  const release = Release.findOne({ application: req.params.id, current: true }, done)
-    .then((data) => console.log(data))
-    .catch(next);
-  const event = Event.create({
+router.post("/webhooks/:id/:type", async (req, res, next) => { 
+  // console.log(req.headers)
+  const release = await Release.findOne({ application: req.params.id, current: true });
+  console.log(release);
+  let event = new Event({
     type: req.params.type,
     source: req.headers,
     release: release._id,
     nested: { raw: req.body },
-  })
-    .then((data) => console.log(data))
-    .catch(next);
-  Release.findOneAndUpdate({_id: release._id},
-    { $push: { events: event._id } },
-    done
-  ).then(res.json(event));
+  });
+  await event.save();
+  release.events.push(event._id);
+  await release.save();
+  res.json(event);
 });
 
 module.exports = router;
