@@ -12,7 +12,7 @@ let done = function (err, result) {
 
 router.get("/events", (req, res, next) => {
   //this will return all the data, exposing only the id and action field to the client
-  Event.find({}, "action")
+  Event.find({}, ["type", "source", "release"])
     .then((data) => res.json(data))
     .catch(next);
 });

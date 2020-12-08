@@ -1,10 +1,18 @@
 const express = require("express");
 const router = express.Router();
 const Application = require("../models/application");
+const Release = require("../models/release");
 
 router.get("/applications", (req, res, next) => {
   //this will return all the data, exposing only the id and action field to the client
   Application.find({}, ["name", "owner", "releases"])
+    .then((data) => res.json(data))
+    .catch(next);
+});
+
+router.get("/applications/:id", (req, res, next) => {
+  //this will return all the data, exposing only the id and action field to the client
+  Application.findOne({_id: req.params.id}, ["name", "owner"]).populate({path: "releases", model: Release})
     .then((data) => res.json(data))
     .catch(next);
 });

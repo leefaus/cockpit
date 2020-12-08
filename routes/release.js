@@ -13,7 +13,7 @@ let done = function (err, result) {
 
 router.get("/releases", (req, res, next) => {
   //this will return all the data, exposing only the id and action field to the client
-  Release.find({}, "action")
+  Release.find({}, ["version", "current", "application", "events"])
     .then((data) => res.json(data))
     .catch(next);
 });
