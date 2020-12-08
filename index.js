@@ -5,6 +5,7 @@ const todo = require("./routes/todo");
 const application = require("./routes/application");
 const event = require("./routes/event");
 const release = require("./routes/release");
+const webhook = require("./routes/webhook")
 const path = require("path");
 require("dotenv").config();
 
@@ -40,6 +41,7 @@ app.use("/api", todo);
 app.use("/api", application);
 app.use("/api", event);
 app.use("/api", release);
+app.use("/", webhook)
 
 app.use((err, req, res, next) => {
   console.log(err);

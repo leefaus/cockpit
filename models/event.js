@@ -9,11 +9,11 @@ const EventSchema = new Schema(
       required: [true, "The type text field is required"],
     },
     source: {
-      type: String,
+      type: mongoose.Schema.Types.Mixed,
     },
     release: { type: mongoose.Schema.Types.ObjectId, ref: "Release" },
     nested: {
-      raw: String,
+      raw: mongoose.Schema.Types.Mixed,
     },
   },
   { timestamps: true }
