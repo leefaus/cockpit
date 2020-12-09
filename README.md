@@ -7,6 +7,7 @@
 > $ brew cask install docker
 > $ brew install node
 > $ brew install yarn
+> $ brew cask install ngrok
 ```
 ## Setup
 We will be using a [MERN](https://www.educative.io/edpresso/what-is-mern-stack) stack for quick prototyping to test out our hypothesis.
@@ -33,3 +34,18 @@ Let's start by initializing a MongoDB database into our $HOME directory and usin
 > $ cd cockpit
 > $ npm run dev
 ```
+
+### Testing Webhook Events
+```bash
+> $ ngrok http 5000
+```
+- Take the **Forwarding** URL and add it to a Webhook in GitHub
+![NGROK](./docs/images/ngrok.png)
+![GitHub](./docs/images/github-webhook.png)
+
+Payload format: <br/>
+`http://:ngrok_url/webhooks/:application_id/:webhook_type`
+
+Example Payload URL: <br/>
+`http://0a228c41caff.ngrok.io/webhooks/5fcfb04fdd248d0bcbd8c356/github`
+
