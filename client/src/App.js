@@ -7,13 +7,10 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import Todo from "./components/todos/Todo";
 import Application from "./components/applications/Application";
+import Home from "./components/home/Home";
 import "./App.css";
 
 library.add(fab, fal);
-
-function Home() {
-  return <h2>Home</h2>;
-}
 
 const App = () => {
   return (

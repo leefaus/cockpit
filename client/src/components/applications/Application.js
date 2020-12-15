@@ -20,22 +20,30 @@ function Event(props) {
 
   return (
     <div className="card">
-      <h3 className="card-header d-flex justify-content-between align-items-center">
-        <FontAwesomeIcon icon={["fab", "github"]} />
-        <FontAwesomeIcon
-          icon={
-            collapsed
-              ? ["fal", "angle-double-down"]
-              : ["fal", "angle-double-up"]
-          }
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#details"
-          aria-expanded="false"
-          aria-controls="collapseExample"
-          onClick={updateIcon}
-        />
-      </h3>
+      <div className="card-header d-flex justify-content-between align-items-center position-relative">
+        <button type="button" class="btn btn-success btn-sm" style={{ width: 200 }}>
+          {event.source["x-github-event"]}
+        </button>
+        <span class="position-absolute top-0 start-0 badge border border-light rounded-circle bg-light p-1">
+          <FontAwesomeIcon icon={["fab", "github"]} size="2x" color="black" />
+        </span>
+
+        <h3>
+          <FontAwesomeIcon
+            icon={
+              collapsed
+                ? ["fal", "angle-double-down"]
+                : ["fal", "angle-double-up"]
+            }
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#details"
+            aria-expanded="false"
+            aria-controls="collapseExample"
+            onClick={updateIcon}
+          />
+        </h3>
+      </div>
       <div id="details" className="collapse">
         <div className="card-body">
           <h5 className="card-title">Headers</h5>
@@ -59,7 +67,9 @@ function Event(props) {
             Start Build
           </a>
         </div>
-              <div className="card-footer text-muted">{moment(event.createdAt, "YYYY-MM-DD hh:mm:ss").fromNow()}</div>
+        <div className="card-footer text-muted">
+          {moment(event.createdAt, "YYYY-MM-DD hh:mm:ss").fromNow()}
+        </div>
       </div>
     </div>
   );
