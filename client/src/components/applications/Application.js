@@ -14,8 +14,14 @@ function Event(props) {
   const event = props.event;
     const [collapsed, setCollapsed] = useState(true)
     
-    function updateIcon() {
+    function updateIcon(key) {
         setCollapsed(collapsed ? false : true)
+    }
+
+    async function triggerWebhook() {
+        // call https://spinnaker-gate.se.armory.io/webhooks/webhook/cockpit-build
+        const result = await axios.post(`https://spinnaker-gate.se.armory.io/webhooks/webhook/cockpit-build`, {hello:"world"});
+        console.log (result)
     }
 
   return (
@@ -40,7 +46,9 @@ function Event(props) {
             data-bs-target="#details"
             aria-expanded="false"
             aria-controls="collapseExample"
-            onClick={updateIcon}
+            //onClick={updateIcon}
+            onClick={() => this.updateIcon(props.key)}
+            //key={props.key}
           />
         </h3>
       </div>
@@ -63,9 +71,9 @@ function Event(props) {
             collapsed="true"
             name="body"
           />
-          <a href="#" className="btn btn-primary mt-3">
+          <button className="btn btn-primary mt-3" onClick={triggerWebhook}>
             Start Build
-          </a>
+          </button>
         </div>
         <div className="card-footer text-muted">
           {moment(event.createdAt, "YYYY-MM-DD hh:mm:ss").fromNow()}
