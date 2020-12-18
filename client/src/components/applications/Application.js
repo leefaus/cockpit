@@ -12,10 +12,12 @@ function Loading() {
 
 function Event(props) {
   const event = props.event;
-    const [collapsed, setCollapsed] = useState(true)
+  const [collapsed, setCollapsed] = useState(true)
     
-    function updateIcon(key) {
-        setCollapsed(collapsed ? false : true)
+    function updateIcon() {
+      setCollapsed(
+        collapsed ? false : true,
+      );
     }
 
     async function triggerWebhook() {
@@ -25,12 +27,16 @@ function Event(props) {
     }
 
   return (
-    <div className="card">
+    <div className="card mb-2">
       <div className="card-header d-flex justify-content-between align-items-center position-relative">
-        <button type="button" class="btn btn-success btn-sm" style={{ width: 200 }}>
+        <button
+          type="button"
+          className="btn btn-success btn-sm"
+          style={{ width: 200 }}
+        >
           {event.source["x-github-event"]}
         </button>
-        <span class="position-absolute top-0 start-0 badge border border-light rounded-circle bg-light p-1">
+        <span className="position-absolute top-0 start-0 badge border border-light rounded-circle bg-light p-1">
           <FontAwesomeIcon icon={["fab", "github"]} size="2x" color="black" />
         </span>
 
@@ -43,16 +49,16 @@ function Event(props) {
             }
             type="button"
             data-bs-toggle="collapse"
-            data-bs-target="#details"
+            data-bs-target={`#details-${event._id}`}
             aria-expanded="false"
             aria-controls="collapseExample"
             //onClick={updateIcon}
-            onClick={() => this.updateIcon(props.key)}
+            onClick={updateIcon}
             //key={props.key}
           />
         </h3>
       </div>
-      <div id="details" className="collapse">
+      <div id={`details-${event._id}`} className="collapse">
         <div className="card-body">
           <h5 className="card-title">Headers</h5>
           <ReactJson
@@ -60,6 +66,7 @@ function Event(props) {
             src={event.source}
             displayDataTypes="false"
             iconStyle="circle"
+            collapsed="true"
             name="headers"
           />
           <h5 className="card-title mt-2">Body</h5>
