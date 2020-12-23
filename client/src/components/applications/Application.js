@@ -36,16 +36,14 @@ function Event(props) {
         aria-controls="collapseExample"
         onClick={updateIcon}
       >
-        <div>
-          <FontAwesomeIcon
-            icon={collapsed ? ["fal", "angle-right"] : ["fal", "angle-down"]}
-            type="button"
-            size="lg"
-          />
-          <span className="font-monospace ms-3 ">
-            {event.source["x-github-event"]}
-          </span>
-        </div>
+        <FontAwesomeIcon
+          icon={collapsed ? ["fal", "angle-right"] : ["fal", "angle-down"]}
+          type="button"
+          size="lg"
+        />
+        <span className="font-monospace ms-3 ">
+          {event.source["x-github-event"]}
+        </span>
       </div>
       <div id={`details-${event._id}`} className="collapse">
         <div className="card-body">
