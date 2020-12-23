@@ -28,35 +28,24 @@ function Event(props) {
 
   return (
     <div className="card mb-2">
-      <div className="card-header d-flex justify-content-between align-items-center position-relative">
-        <button
-          type="button"
-          className="btn btn-success btn-sm"
-          style={{ width: 200 }}
-        >
-          {event.source["x-github-event"]}
-        </button>
-        <span className="position-absolute top-0 start-0 badge border border-light rounded-circle bg-light p-1">
-          <FontAwesomeIcon icon={["fab", "github"]} size="2x" color="black" />
-        </span>
-
-        <h3>
+      <div
+        className="card-header d-flex align-middle"
+        data-bs-toggle="collapse"
+        data-bs-target={`#details-${event._id}`}
+        aria-expanded="false"
+        aria-controls="collapseExample"
+        onClick={updateIcon}
+      >
+        <div>
           <FontAwesomeIcon
-            icon={
-              collapsed
-                ? ["fal", "angle-double-down"]
-                : ["fal", "angle-double-up"]
-            }
+            icon={collapsed ? ["fal", "angle-right"] : ["fal", "angle-down"]}
             type="button"
-            data-bs-toggle="collapse"
-            data-bs-target={`#details-${event._id}`}
-            aria-expanded="false"
-            aria-controls="collapseExample"
-            //onClick={updateIcon}
-            onClick={updateIcon}
-            //key={props.key}
+            size="lg"
           />
-        </h3>
+          <span className="font-monospace ms-3 ">
+            {event.source["x-github-event"]}
+          </span>
+        </div>
       </div>
       <div id={`details-${event._id}`} className="collapse">
         <div className="card-body">
