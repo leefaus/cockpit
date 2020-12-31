@@ -17,7 +17,7 @@ router.post("/webhooks/:id/:type", async (req, res, next) => {
   // console.log(req.headers)
   const RulesEngineInstance = new RulesEngine();
   const release = await Release.findOne({ application: req.params.id, current: true });
-  console.log(release);
+  // console.log(release);
   let event = new Event({
     type: req.params.type,
     source: req.headers,
