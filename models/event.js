@@ -15,6 +15,15 @@ const EventSchema = new Schema(
     nested: {
       raw: mongoose.Schema.Types.Mixed,
     },
+    rules: [
+      {
+        title: String,
+        url: String,
+        method: String,
+        body: mongoose.Schema.Types.Mixed,
+        response: mongoose.Schema.Types.Mixed,
+      },
+    ],
   },
   { timestamps: true }
 );

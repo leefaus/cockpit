@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const Release = require("../models/release");
 const Event = require("../models/event");
+const RulesEngine = require("../services/rules_engine");
+const Rule = require("../models/rule");
 
 let done = function (err, result) {
   if (err) {
@@ -13,6 +15,7 @@ let done = function (err, result) {
 
 router.post("/webhooks/:id/:type", async (req, res, next) => { 
   // console.log(req.headers)
+  const RulesEngineInstance = new RulesEngine();
   const release = await Release.findOne({ application: req.params.id, current: true });
   console.log(release);
   let event = new Event({
@@ -24,6 +27,7 @@ router.post("/webhooks/:id/:type", async (req, res, next) => {
   await event.save();
   release.events.push(event._id);
   await release.save();
+  await RulesEngineInstance.evaluateRules(event);
   res.json(event);
 });
 

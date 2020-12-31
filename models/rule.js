@@ -4,11 +4,15 @@ const Schema = mongoose.Schema;
 //create schema for rule
 const RuleSchema = new Schema(
   {
+    title: {
+      type: String,
+      required: [true, "The title type text field is required"],
+    },
     event_type: {
       type: String,
       required: [true, "The event type text field is required"],
-        },
-    criteria: { type: []},
+    },
+    criteria: { type: [] },
     // subject: {
     //   type: String,
     //   required: [true, "The subject text field is required"],

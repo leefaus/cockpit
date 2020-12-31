@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Rule = require("../models/rule");
 
+
 let done = function (err, result) {
   if (err) {
     console.log(err);
@@ -12,7 +13,7 @@ let done = function (err, result) {
 
 router.get("/rules", (req, res, next) => {
   //this will return all the data, exposing only the id and action field to the client
-  Rule.find({}, ["type", "source", "release"])
+  Rule.find({})
     .then((data) => res.json(data))
     .catch(next);
 });
@@ -30,7 +31,8 @@ router.post("/rules", (req, res, next) => {
 });
 
 router.post("/testing", (req, res, next) => {
-  console.log(req.body);
+  console.log("testing = ", req.body);
+  res.json({ hello: "world" });
 });
 
 module.exports = router;
