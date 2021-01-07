@@ -30,7 +30,7 @@ router.post("/rules", (req, res, next) => {
   }
 });
 
-router.post("/testing", (req, res, next) => {
+router.post("/loopback", (req, res, next) => {
   console.log("testing = ", req.body);
   res.json({ hello: "world" });
 });
