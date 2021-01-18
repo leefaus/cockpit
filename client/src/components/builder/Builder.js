@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import jp from "jsonpath";
 import jsonLogic from "json-logic-js";
 import { JSONPath } from "jsonpath-plus";
 
@@ -80,7 +79,7 @@ function Builder() {
     }
 
     function evaluateRule() {
-      // example rule: { "and": [{"==": [{"var" : "query"}, "push"}]}]}
+      // example rule: {"==": [{"var" : "query"}, "push"]}
       // complex example rule: {"all": [{"var": "query"}, {"===": [{"var" : ""}, "README.md"]}]}
       var data = `{ "query" : ${evaluation}}`;
       console.log(`inbound rule -> `, rule);

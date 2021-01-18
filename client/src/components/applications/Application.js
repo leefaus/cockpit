@@ -44,7 +44,7 @@ function Event(props) {
             size="lg"
           />
           <span className="font-monospace ms-3 ">
-            {event.source["x-github-event"]}
+            {event.headers["x-github-event"]}
           </span>
         </div>
         <div id={`details-${event._id}`} className="collapse">
@@ -52,7 +52,7 @@ function Event(props) {
             <h5 className="card-title">Headers</h5>
             <ReactJson
               className="card-text"
-              src={event.source}
+              src={event.headers}
               displayDataTypes="false"
               iconStyle="circle"
               collapsed="true"
@@ -61,7 +61,7 @@ function Event(props) {
             <h5 className="card-title mt-2">Body</h5>
             <ReactJson
               className="card-text"
-              src={event.nested}
+              src={event.body}
               displayDataTypes="false"
               iconStyle="circle"
               collapsed="true"

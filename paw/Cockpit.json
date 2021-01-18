@@ -1,0 +1,338 @@
+{
+  "info": {
+    "name": "Cockpit.paw",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Get All Todos",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "localhost:5000/api/todos",
+          "query": null,
+          "protocol": null,
+          "host": [
+            "localhost:5000/api/todos"
+          ],
+          "port": null,
+          "path": null
+        },
+        "description": "",
+        "header": [],
+        "body": null,
+        "auth": null
+      },
+      "protocolProfileBehavior": {
+        "followRedirects": false,
+        "followOriginalHttpMethod": false,
+        "followAuthorizationHeader": false
+      },
+      "response": []
+    },
+    {
+      "name": "Create a Todo",
+      "request": {
+        "method": "POST",
+        "url": {
+          "raw": "localhost:5000/api/todos",
+          "query": null,
+          "protocol": null,
+          "host": [
+            "localhost:5000/api/todos"
+          ],
+          "port": null,
+          "path": null
+        },
+        "description": "",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "disabled": false,
+            "description": null
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "disabled": false,
+          "raw": "{\"action\":\"build a mern stack application\"}"
+        },
+        "auth": null
+      },
+      "protocolProfileBehavior": {
+        "followRedirects": false,
+        "followOriginalHttpMethod": false,
+        "followAuthorizationHeader": false
+      },
+      "response": []
+    },
+    {
+      "name": "Delete a Todo",
+      "request": {
+        "method": "DELETE",
+        "url": {
+          "raw": "http://localhost:5000/api/todos/5fce3da349beff73bf545f17",
+          "query": null,
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "todos",
+            "5fce3da349beff73bf545f17"
+          ]
+        },
+        "description": "",
+        "header": [],
+        "body": null,
+        "auth": null
+      },
+      "protocolProfileBehavior": {
+        "followRedirects": false,
+        "followOriginalHttpMethod": false,
+        "followAuthorizationHeader": false
+      },
+      "response": []
+    },
+    {
+      "name": "Get All Applications",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://localhost:5000/api/applications",
+          "query": null,
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "applications"
+          ]
+        },
+        "description": "",
+        "header": [],
+        "body": null,
+        "auth": null
+      },
+      "protocolProfileBehavior": {
+        "followRedirects": false,
+        "followOriginalHttpMethod": false,
+        "followAuthorizationHeader": false
+      },
+      "response": []
+    },
+    {
+      "name": "Create Application",
+      "request": {
+        "method": "POST",
+        "url": {
+          "raw": "http://localhost:5000/api/applications",
+          "query": null,
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "applications"
+          ]
+        },
+        "description": "",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "disabled": false,
+            "description": null
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "disabled": false,
+          "raw": "{\"name\":\"quote-api\",\"owner\":\"continuouslee\",\"releases\":[]}"
+        },
+        "auth": null
+      },
+      "protocolProfileBehavior": {
+        "followRedirects": false,
+        "followOriginalHttpMethod": false,
+        "followAuthorizationHeader": false
+      },
+      "response": []
+    },
+    {
+      "name": "Get an Application by Id",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://localhost:5000/api/applications/5fcfb04fdd248d0bcbd8c356",
+          "query": null,
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "applications",
+            "5fcfb04fdd248d0bcbd8c356"
+          ]
+        },
+        "description": "",
+        "header": [],
+        "body": null,
+        "auth": null
+      },
+      "protocolProfileBehavior": {
+        "followRedirects": false,
+        "followOriginalHttpMethod": false,
+        "followAuthorizationHeader": false
+      },
+      "response": []
+    },
+    {
+      "name": "Get All Releases",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://localhost:5000/api/releases",
+          "query": null,
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "releases"
+          ]
+        },
+        "description": "",
+        "header": [],
+        "body": null,
+        "auth": null
+      },
+      "protocolProfileBehavior": {
+        "followRedirects": false,
+        "followOriginalHttpMethod": false,
+        "followAuthorizationHeader": false
+      },
+      "response": []
+    },
+    {
+      "name": "Create Release",
+      "request": {
+        "method": "POST",
+        "url": {
+          "raw": "http://localhost:5000/api/releases",
+          "query": null,
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "releases"
+          ]
+        },
+        "description": "",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "disabled": false,
+            "description": null
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "disabled": false,
+          "raw": "{\"version\":\"1.0.0\",\"current\":\"false\",\"application\":\"5fcfb04fdd248d0bcbd8c356\",\"events\":[]}"
+        },
+        "auth": null
+      },
+      "protocolProfileBehavior": {
+        "followRedirects": false,
+        "followOriginalHttpMethod": false,
+        "followAuthorizationHeader": false
+      },
+      "response": []
+    },
+    {
+      "name": "Get All Rules",
+      "request": {
+        "method": "GET",
+        "url": {
+          "raw": "http://localhost:5000/api/rules",
+          "query": null,
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "rules"
+          ]
+        },
+        "description": "",
+        "header": [],
+        "body": null,
+        "auth": null
+      },
+      "protocolProfileBehavior": {
+        "followRedirects": false,
+        "followOriginalHttpMethod": false,
+        "followAuthorizationHeader": false
+      },
+      "response": []
+    },
+    {
+      "name": "Create Rule",
+      "request": {
+        "method": "POST",
+        "url": {
+          "raw": "http://localhost:5000/api/rules",
+          "query": null,
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "5000",
+          "path": [
+            "api",
+            "rules"
+          ]
+        },
+        "description": "",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "disabled": false,
+            "description": null
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "disabled": false,
+          "raw": "{\"event_type\":\"github\",\"criteria\":[{\"subject\":\"x-github-event\",\"comparison\":\"equals\",\"predicate\":\"push\"}],\"action\":[{\"url\":\"http://localhost:5000/api/testing\",\"method\":\"POST\",\"body\":[\"ref\",\"repository.full_name\",\"pusher.name\"]}],\"active\":true,\"application\":\"5fcfb04fdd248d0bcbd8c356\",\"title\":\"testing rules engine\"}"
+        },
+        "auth": null
+      },
+      "protocolProfileBehavior": {
+        "followRedirects": false,
+        "followOriginalHttpMethod": false,
+        "followAuthorizationHeader": false
+      },
+      "response": []
+    }
+  ]
+}

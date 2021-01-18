@@ -8,13 +8,13 @@ const EventSchema = new Schema(
       type: String,
       required: [true, "The type text field is required"],
     },
-    source: {
+    headers: {
+      type: mongoose.Schema.Types.Mixed,
+    },
+    body: {
       type: mongoose.Schema.Types.Mixed,
     },
     release: { type: mongoose.Schema.Types.ObjectId, ref: "Release" },
-    nested: {
-      raw: mongoose.Schema.Types.Mixed,
-    },
     rules: [
       {
         type: new mongoose.Schema(
@@ -25,8 +25,11 @@ const EventSchema = new Schema(
             method: String,
             body: mongoose.Schema.Types.Mixed,
             response: mongoose.Schema.Types.Mixed,
-          }, { timestamps: { createdAt: 'created_at' } })
-      }],
+          },
+          { timestamps: { createdAt: "created_at" } }
+        ),
+      },
+    ],
   },
   { timestamps: true }
 );

@@ -12,7 +12,7 @@ const RuleSchema = new Schema(
       type: String,
       required: [true, "The event type text field is required"],
     },
-    criteria: { type: [] },
+    criteria: { type: mongoose.Schema.Types.Mixed, required: [true, "The criteria is required" ]},
     // subject: {
     //   type: String,
     //   required: [true, "The subject text field is required"],
