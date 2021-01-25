@@ -4,7 +4,7 @@ import jsonLogic from "json-logic-js";
 import { JSONPath } from "jsonpath-plus";
 
 function DataJSON(props) {
-  let str = `{"${props.variable}", "${props.query}"}`;
+  let str = `{"${props.variable}": "${props.query}"}`;
   return (
     <div className="mt-3"><pre>{str}</pre></div>
   )
