@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useParams } from "react-router-dom";
 import ReactJson from "react-json-view";
 import moment from "moment"
+import tz from "moment-timezone"
 
 
 function Loading() {
@@ -27,52 +28,59 @@ function Event(props) {
     }
 
   return (
-    <div className="card mb-2">
-      <div
-        className="card-header d-flex align-middle"
-        data-bs-toggle="collapse"
-        data-bs-target={`#details-${event._id}`}
-        aria-expanded="false"
-        aria-controls="collapseExample"
-        onClick={updateIcon}
-      >
-        <FontAwesomeIcon
-          icon={collapsed ? ["fal", "angle-right"] : ["fal", "angle-down"]}
-          type="button"
-          size="lg"
-        />
-        <span className="font-monospace ms-3 ">
-          {event.source["x-github-event"]}
-        </span>
-      </div>
-      <div id={`details-${event._id}`} className="collapse">
-        <div className="card-body">
-          <h5 className="card-title">Headers</h5>
-          <ReactJson
-            className="card-text"
-            src={event.source}
-            displayDataTypes="false"
-            iconStyle="circle"
-            collapsed="true"
-            name="headers"
+    <div>
+      <div className="card mb-2">
+        <div
+          className="card-header d-flex align-middle"
+          data-bs-toggle="collapse"
+          data-bs-target={`#details-${event._id}`}
+          aria-expanded="false"
+          aria-controls="collapseExample"
+          onClick={updateIcon}
+        >
+          <FontAwesomeIcon
+            icon={collapsed ? ["fal", "angle-right"] : ["fal", "angle-down"]}
+            type="button"
+            size="lg"
           />
-          <h5 className="card-title mt-2">Body</h5>
-          <ReactJson
-            className="card-text"
-            src={event.nested}
-            displayDataTypes="false"
-            iconStyle="circle"
-            collapsed="true"
-            name="body"
-          />
-          <button className="btn btn-primary mt-3" onClick={triggerWebhook}>
-            Start Build
-          </button>
+          <span className="font-monospace ms-3 ">
+            {event.headers["x-github-event"]}
+          </span>
         </div>
-        <div className="card-footer text-muted">
-          {moment(event.createdAt, "YYYY-MM-DD hh:mm:ss").fromNow()}
+        <div id={`details-${event._id}`} className="collapse">
+          <div className="card-body">
+            <h5 className="card-title">Headers</h5>
+            <ReactJson
+              className="card-text"
+              src={event.headers}
+              displayDataTypes="false"
+              iconStyle="circle"
+              collapsed="true"
+              name="headers"
+            />
+            <h5 className="card-title mt-2">Body</h5>
+            <ReactJson
+              className="card-text"
+              src={event.body}
+              displayDataTypes="false"
+              iconStyle="circle"
+              collapsed="true"
+              name="body"
+            />
+            <button className="btn btn-primary mt-3" onClick={triggerWebhook}>
+              Start Build
+            </button>
+          </div>
+          <div className="card-footer text-muted">
+            {moment
+              .tz(event.createdAt, "YYYY-MM-DD hh:mm:ss", "Europe/London")
+              .clone()
+              .tz(Intl.DateTimeFormat().resolvedOptions().timeZone)
+              .fromNow()}
+          </div>
         </div>
       </div>
+      <div><ul>{event.rules.map((rule) => <li>{rule.title}</li>)}</ul></div>
     </div>
   );
 }

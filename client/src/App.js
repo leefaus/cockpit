@@ -9,6 +9,7 @@ import Todo from "./components/todos/Todo";
 import Application from "./components/applications/Application";
 import Home from "./components/home/Home";
 import Rules from "./components/rules/Rules";
+import Builder from "./components/builder/Builder";
 import "./App.css";
 
 library.add(fab, fal);
@@ -26,6 +27,9 @@ const App = () => {
           </Route>
           <Route path="/rules">
             <Rules />
+          </Route>
+          <Route path="/builder">
+            <Builder />
           </Route>
           <Route path="/">
             <Home />

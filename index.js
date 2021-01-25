@@ -5,6 +5,7 @@ const todo = require("./routes/todo");
 const application = require("./routes/application");
 const event = require("./routes/event");
 const release = require("./routes/release");
+const rule = require("./routes/rule")
 const webhook = require("./routes/webhook")
 const path = require("path");
 require("dotenv").config();
@@ -41,6 +42,7 @@ app.use("/api", todo);
 app.use("/api", application);
 app.use("/api", event);
 app.use("/api", release);
+app.use("/api", rule);
 app.use("/", webhook)
 
 app.use((err, req, res, next) => {
@@ -51,3 +53,5 @@ app.use((err, req, res, next) => {
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
+
+module.exports = app;
