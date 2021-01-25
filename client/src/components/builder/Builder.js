@@ -225,7 +225,6 @@ function Builder() {
               type="text"
               placeholder="event json"
               value={event}
-              readOnly
               onChange={(e) => setEvent(e.target.value)}
             />
             <label for="json">Event JSON</label>
