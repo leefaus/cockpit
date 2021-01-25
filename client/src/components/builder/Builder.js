@@ -11,7 +11,7 @@ function DataJSON(props) {
 }
 
 function RuleJSON(props) {
-  let str = `{"${props.operator}": [{var: "${props.variable}}", "${props.rule}"]}`
+  let str = `{"${props.operator}": [{"var": "${props.variable}"}, "${props.rule}"]}`
   return (
     <div className="mt-3">
       <pre>{str}</pre>
