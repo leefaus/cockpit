@@ -32,7 +32,7 @@ router.post("/rules", (req, res, next) => {
 
 router.post("/loopback", (req, res, next) => {
   console.log("testing = ", req.body);
-  res.json({ hello: "world" });
+  res.json(req.body);
 });
 
 module.exports = router;

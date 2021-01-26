@@ -130,7 +130,7 @@ function RuleForm(props) {
   );
 }
 
-function Builder() {
+function RuleBuilder() {
   const fetchEvents = async () => {
     const result = await axios.get("/api/events");
     const events = result.data;
@@ -385,4 +385,4 @@ function Builder() {
   );
 }
 
-export default Builder;
+export default RuleBuilder;
