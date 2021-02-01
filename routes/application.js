@@ -7,7 +7,7 @@ const { populate } = require("../models/event");
 
 router.get("/applications", (req, res, next) => {
   //this will return all the data, exposing only the id and action field to the client
-  Application.find({}, ["name", "owner", "releases"])
+  Application.find({})
     .then((data) => res.json(data))
     .catch(next);
 });
@@ -17,7 +17,7 @@ router.get("/applications/:id", (req, res, next) => {
   Application.findOne({ _id: req.params.id }, ["name", "owner"])
     .populate(
       {
-        path: "releases",
+        path: "components.release",
         model: Release,
         populate: { path: "events", model: Event }
       }
@@ -36,6 +36,13 @@ router.post("/applications", (req, res, next) => {
       error: "The input field is empty",
     });
   }
+});
+
+router.get("/components/:id", (req, res, next) => {
+  //this will return all the data, exposing only the id and action field to the client
+  Application.findOne({ "components._id": req.params.id }, {"components" : {$elemMatch: {_id: req.params.id}}}).populate({path: "components.releases", model: Release, populate: {path: "events", model: Event}})
+    .then((data) => res.json(data))
+    .catch(next);
 });
 
 module.exports = router;

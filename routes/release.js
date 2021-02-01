@@ -22,11 +22,7 @@ router.post("/releases", (req, res, next) => {
   if (req.body.version) {
     Release.create(req.body)
       .then(function (data) {
-        Application.findOneAndUpdate(
-          { _id: data.application },
-          { $push: { releases: data._id } },
-          done
-        );
+        Application.findOneAndUpdate({ "components._id": data.component }, { $push: { "components.$.releases": data._id } }, done)
         return data;
       })
       .then((data) => res.json(data))

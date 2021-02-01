@@ -6,7 +6,7 @@ import { fal } from "@fortawesome/pro-light-svg-icons"
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import Todo from "./components/todos/Todo";
-import Application from "./components/applications/Application";
+import Component from "./components/applications/Component";
 import Home from "./components/home/Home";
 import Rules from "./components/rules/Rules";
 import RuleBuilder from "./components/builder/RuleBuilder";
@@ -20,8 +20,8 @@ const App = () => {
     <div className="container bg-light">
       <Router>
         <Switch>
-          <Route path="/application/:applicationId">
-            <Application />
+          <Route path="/component/:componentId">
+            <Component />
           </Route>
           <Route path="/todo">
             <Todo />

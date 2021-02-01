@@ -16,7 +16,7 @@ let done = function (err, result) {
 router.post("/webhooks/:id/:type", async (req, res, next) => { 
   // console.log(req.headers)
   const RulesEngineInstance = new RulesEngine();
-  const release = await Release.findOne({ application: req.params.id, current: true });
+  const release = await Release.findOne({ component: req.params.id, current: true });
   // console.log(req.body)
   let event = new Event({
     type: req.params.type,
@@ -27,7 +27,7 @@ router.post("/webhooks/:id/:type", async (req, res, next) => {
   await event.save();
   release.events.push(event._id);
   await release.save();
-  await RulesEngineInstance.evaluateRules(event);
+  // await RulesEngineInstance.evaluateRules(event);
   res.json(event);
 });
 

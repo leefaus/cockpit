@@ -6,6 +6,7 @@ const application = require("./routes/application");
 const event = require("./routes/event");
 const release = require("./routes/release");
 const rule = require("./routes/rule")
+const action = require("./routes/action");
 const webhook = require("./routes/webhook")
 const path = require("path");
 require("dotenv").config();
@@ -43,6 +44,7 @@ app.use("/api", application);
 app.use("/api", event);
 app.use("/api", release);
 app.use("/api", rule);
+app.use("/api", action)
 app.use("/", webhook)
 
 app.use((err, req, res, next) => {

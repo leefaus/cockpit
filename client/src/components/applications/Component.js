@@ -100,23 +100,24 @@ function Release(props) {
   );
 }
 
-function Application() {
-  const { applicationId } = useParams();
-  const fetchApplication = async () => {
+function Component() {
+  const { componentId } = useParams();
+  const fetchComponent = async () => {
     console.log("fetchApplication");
-    const result = await axios.get(`/api/applications/${applicationId}`);
-    const app = result.data;
-    app.releases.forEach((release) => {
+    const result = await axios.get(`/api/components/${componentId}`);
+    const comp = result.data.components[0];
+    console.log(comp)
+    comp.releases.forEach((release) => {
       console.log(`Releases: ${release}`);
       if (release.current) {
         console.log(`Current Release: ${release}`);
         setActiveRelease({ id: release._id, events: release.events });
       }
     });
-    setApplication(app);
+    setComponent(comp);
     setLoading(false);
   };
-  const [application, setApplication] = useState({
+  const [component, setComponent] = useState({
     releases: [{ events: [] }],
   });
   const [activeRelease, setActiveRelease] = useState({
@@ -126,7 +127,7 @@ function Application() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetchApplication();
+    fetchComponent();
   }, []);
 
   return (
@@ -138,8 +139,7 @@ function Application() {
           <div className="container">
             <div className="row mb-3">
               <h2>
-                <FontAwesomeIcon icon={["fal", "browser"]} /> application/
-                {application.name}
+                <FontAwesomeIcon icon={["fal", "browser"]} /> {component.name}
               </h2>
             </div>
           </div>
@@ -148,7 +148,7 @@ function Application() {
               <div className="col-3">
                 <h3>Releases</h3>
                 <ul className="list-group">
-                  {application.releases.map((release) => (
+                  {component.releases.map((release) => (
                     <Release key={release._id} release={release} />
                   ))}
                 </ul>
@@ -167,4 +167,4 @@ function Application() {
   );
 }
 
-export default Application;
+export default Component;

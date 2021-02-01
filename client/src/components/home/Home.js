@@ -31,11 +31,19 @@ function Home() {
           </div>
           <div className="container">
             <div className="row">
-              <ul>
-                {applications.map((application) => (
-                    <li key={application._id}><a href={'application/' + application._id}>{application.name}</a></li>
-                ))}
-              </ul>
+              {applications.map((application) => (
+                <ul>
+                  <h2>{application.name}</h2>
+
+                  {application.components.map((component) => (
+                    <li key={component._id}>
+                      <a href={"component/" + component._id}>
+                        {component.name}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              ))}
             </div>
           </div>
         </React.Fragment>
