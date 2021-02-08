@@ -38,7 +38,7 @@ function Event(props) {
             size="lg"
           />
           <span className="font-monospace ms-3 ">
-            {event.headers["x-github-event"]}
+            {event.type}:{event.headers["x-github-event"]}
           </span>
         </div>
         <div id={`details-${event._id}`} className="collapse">
