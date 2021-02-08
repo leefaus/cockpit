@@ -21,12 +21,6 @@ function Event(props) {
       );
     }
 
-    async function triggerWebhook() {
-        // call https://spinnaker-gate.se.armory.io/webhooks/webhook/cockpit-build
-        const result = await axios.post(`https://spinnaker-gate.se.armory.io/webhooks/webhook/cockpit-build`, {hello:"world"});
-        console.log (result)
-    }
-
   return (
     <div>
       <div className="card mb-2">
@@ -67,9 +61,6 @@ function Event(props) {
               collapsed="true"
               name="body"
             />
-            <button className="btn btn-primary mt-3" onClick={triggerWebhook}>
-              Start Build
-            </button>
           </div>
           <div className="card-footer text-muted">
             {moment
@@ -87,7 +78,7 @@ function Event(props) {
 
 function Release(props) {
   const release = props.release;
-  console.log(`component: ${release._id}`);
+  console.log(`release: ${release._id}`);
   const style =
     "list-group-item d-flex justify-content-between align-items-center";
   const active = release.current ? `${style} active` : style;
@@ -105,7 +96,7 @@ function Component() {
   const fetchComponent = async () => {
     console.log("fetchApplication");
     const result = await axios.get(`/api/components/${componentId}`);
-    const comp = result.data.components[0];
+    const comp = result.data;
     console.log(comp)
     comp.releases.forEach((release) => {
       console.log(`Releases: ${release}`);

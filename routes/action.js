@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const { Action } = require("../models/rule");
 
 let done = function (err, result) {
   if (err) {

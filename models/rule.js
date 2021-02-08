@@ -1,14 +1,14 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-
 const ActionSchema = new Schema({
+  title: String,
   event_type: String,
   method: String,
   url: String,
   headers: { type: mongoose.Schema.Types.Mixed },
   data: { type: mongoose.Schema.Types.Mixed },
-  secrets: []
+  secrets: [],
 });
 
 //create schema for rule
@@ -30,9 +30,6 @@ const RuleSchema = new Schema(
       type: mongoose.Schema.Types.Mixed,
       required: [true, "The input variables are required"],
     },
-    actions: [{ type: mongoose.Schema.Types.ObjectId, ref: "Release" }] 
-    ,
-    component: { type: mongoose.Schema.Types.ObjectId, ref: "Component" },
   },
   { timestamps: true }
 );

@@ -7,7 +7,15 @@ const ComponentSchema = new Schema(
     short_name: String,
     team_lead: String,
     releases: [{ type: mongoose.Schema.Types.ObjectId, ref: "Release" }],
-    rules: [{ type: mongoose.Schema.Types.ObjectId, ref: "Rule" }],
+    rules: [
+      {
+        type: new mongoose.Schema({
+          rule: { type: mongoose.Schema.Types.ObjectId, ref: "Rule" },
+          actions: [{ type: mongoose.Schema.Types.ObjectId, ref: "Action" }],
+        }),
+      },
+    ],
+    application: { type: mongoose.Schema.Types.ObjectId, ref: "Application" }
   },
   { timestamps: true }
 );
@@ -23,12 +31,13 @@ const ApplicationSchema = new Schema(
     owner: {
       type: String,
     },
-    components: [ComponentSchema]
+    components: [{ type: mongoose.Schema.Types.ObjectId, ref: "Component" }],
   },
   { timestamps: true }
 );
 
 //create model for application
 const Application = mongoose.model("application", ApplicationSchema);
+const Component = mongoose.model("component", ComponentSchema);
 
-module.exports = Application;
+module.exports = { Application, Component };

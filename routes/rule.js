@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const Rule = require("../models/rule");
+const { Rule } = require("../models/rule");
 
 
 let done = function (err, result) {
