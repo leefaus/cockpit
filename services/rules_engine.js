@@ -29,7 +29,7 @@ class RulesEngine {
       data: variables,
       headers: { "Content-Type": "application/json" },
     });
-    console.log(result);
+    // console.log(result);
     return result
   }
 

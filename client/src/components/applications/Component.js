@@ -71,7 +71,96 @@ function Event(props) {
           </div>
         </div>
       </div>
-      <div><ul>{event.rules.map((rule) => <li>{rule.title}</li>)}</ul></div>
+      <div className="mb-3">
+        <ul className="list-group list-group-flush">
+          {event.rules.map((rule) => (
+            <li className="list-group-item">
+              <div>
+                <span className="badge bg-light text-dark">rule:</span>{" "}
+                {rule.ruleId.title} {" "}
+                <span className="badge bg-light text-dark">action:</span>{" "}
+                {rule.actionId.title}
+              </div>
+              <div></div>
+              <nav className="mt-3">
+                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                  <a
+                    class="nav-link active"
+                    id="nav-home-tab"
+                    data-bs-toggle="tab"
+                    href="#nav-home"
+                    role="tab"
+                    aria-controls="nav-home"
+                    aria-selected="true"
+                  >
+                    Details
+                  </a>
+                  <a
+                    class="nav-link"
+                    id="nav-profile-tab"
+                    data-bs-toggle="tab"
+                    href="#nav-profile"
+                    role="tab"
+                    aria-controls="nav-profile"
+                    aria-selected="false"
+                  >
+                    Response{" "}
+                    <span className="badge bg-success mx-2">{rule.status}</span>
+                  </a>
+                </div>
+              </nav>
+              <div className="tab-content mt-2" id="nav-tabContent">
+                <div
+                  className="tab-pane fade show active"
+                  id="nav-home"
+                  role="tabpanel"
+                  aria-labelledby="nav-home-tab"
+                >
+                  <ReactJson
+                    className="card-text"
+                    src={rule.ruleId.criteria}
+                    displayDataTypes="false"
+                    iconStyle="circle"
+                    collapsed="false"
+                    name="rule"
+                  />
+                  <ReactJson
+                    className="card-text"
+                    src={rule.config}
+                    displayDataTypes="false"
+                    iconStyle="circle"
+                    collapsed="true"
+                    name="action"
+                  />
+                </div>
+                <div
+                  className="tab-pane fade"
+                  id="nav-profile"
+                  role="tabpanel"
+                  aria-labelledby="nav-profile-tab"
+                >
+                  <ReactJson
+                    className="card-text"
+                    src={rule.headers}
+                    displayDataTypes="false"
+                    iconStyle="circle"
+                    collapsed="true"
+                    name="headers"
+                  />
+                  <ReactJson
+                    className="card-text"
+                    src={rule.response}
+                    displayDataTypes="false"
+                    iconStyle="circle"
+                    collapsed="true"
+                    name="response"
+                  />
+                </div>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 }
@@ -97,7 +186,7 @@ function Component() {
     console.log("fetchApplication");
     const result = await axios.get(`/api/components/${componentId}`);
     const comp = result.data;
-    console.log(comp)
+    console.log(`data => ${JSON.stringify(comp)}`)
     comp.releases.forEach((release) => {
       console.log(`Releases: ${release}`);
       if (release.current) {

@@ -54,21 +54,26 @@ router.post("/components", (req, res, next) => {
 
 router.get("/components/:id", (req, res, next) => {
   //this will return all the data, exposing only the id and action field to the client
-  Component.findOne(
-    { _id: req.params.id }
-  )
+  Component.findOne({ _id: req.params.id })
     .populate({
       path: "releases",
       model: Release,
-      populate: { path: "events", model: Event },
-    }).populate({
-      path: "application", model: Application
+      populate: {
+        path: "events",
+        model: Event,
+        populate: [{ path: "rules.ruleId", model: Rule }, { path: "rules.actionId", model: Action }],
+        options: { sort: '-createdAt' }
+      }
+    })
+    .populate({
+      path: "application",
+      model: Application,
     })
     .then((data) => res.json(data))
     .catch(next);
 });
 
-router.get("/Components", (req, res, next) => {
+router.get("/components", (req, res, next) => {
   //this will return all the data, exposing only the id and action field to the client
   Component.find()
     .populate({ path: "rules.rule", model: Rule }).populate({path: "rules.actions", model: Action})
