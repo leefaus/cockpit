@@ -19,11 +19,11 @@ const EventSchema = new Schema(
       {
         type: new mongoose.Schema(
           {
-            title: String,
             ruleId: { type: mongoose.Schema.Types.ObjectId, ref: "Rule" },
-            url: String,
-            method: String,
-            body: mongoose.Schema.Types.Mixed,
+            actionId: { type: mongoose.Schema.Types.ObjectId, ref: "Action" },
+            status: String,
+            headers: mongoose.Schema.Types.Mixed,
+            config: mongoose.Schema.Types.Mixed,
             response: mongoose.Schema.Types.Mixed,
           },
           { timestamps: { createdAt: "created_at" } }

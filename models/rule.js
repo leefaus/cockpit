@@ -1,6 +1,16 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
+const ActionSchema = new Schema({
+  title: String,
+  event_type: String,
+  method: String,
+  url: String,
+  headers: { type: mongoose.Schema.Types.Mixed },
+  data: { type: mongoose.Schema.Types.Mixed },
+  secrets: [],
+});
+
 //create schema for rule
 const RuleSchema = new Schema(
   {
@@ -12,26 +22,20 @@ const RuleSchema = new Schema(
       type: String,
       required: [true, "The event type text field is required"],
     },
-    criteria: { type: mongoose.Schema.Types.Mixed, required: [true, "The criteria is required" ]},
-    // subject: {
-    //   type: String,
-    //   required: [true, "The subject text field is required"],
-    // },
-    // predicate: {
-    //   type: String,
-    //   required: [true, "The predicate text field is required"],
-    // },
-    action: {
-      type: [],
-      required: [true, "The action text field is required"],
+    criteria: {
+      type: mongoose.Schema.Types.Mixed,
+      required: [true, "The criteria is required"],
     },
-    active: Boolean,
-    application: { type: mongoose.Schema.Types.ObjectId, ref: "Application" },
+    input: {
+      type: mongoose.Schema.Types.Mixed,
+      required: [true, "The input variables are required"],
+    },
   },
   { timestamps: true }
 );
 
 //create model for rule
 const Rule = mongoose.model("rule", RuleSchema);
+const Action = mongoose.model("action", ActionSchema);
 
-module.exports = Rule;
+module.exports = { Rule, Action };

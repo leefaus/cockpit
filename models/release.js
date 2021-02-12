@@ -9,7 +9,7 @@ const ReleaseSchema = new Schema(
       required: [true, "The version text field is required"],
     },
     current: Boolean,
-    application: { type: mongoose.Schema.Types.ObjectId, ref: "Application" },
+    component: { type: mongoose.Schema.Types.ObjectId, ref: "Component" },
     events: [{ type: mongoose.Schema.Types.ObjectId, ref: "Event" }],
   },
   { timestamps: true }

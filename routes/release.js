@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Release = require("../models/release");
-const Application = require("../models/application");
+const { Application, Component } = require("../models/application");
 
 let done = function (err, result) {
     if (err) {
@@ -22,11 +22,7 @@ router.post("/releases", (req, res, next) => {
   if (req.body.version) {
     Release.create(req.body)
       .then(function (data) {
-        Application.findOneAndUpdate(
-          { _id: data.application },
-          { $push: { releases: data._id } },
-          done
-        );
+        Component.findOneAndUpdate({ _id: data.component }, { $push: { "releases": data._id } }, done)
         return data;
       })
       .then((data) => res.json(data))

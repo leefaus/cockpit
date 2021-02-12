@@ -3,82 +3,93 @@ const Event = require("../models/event");
 const axios = require("axios");
 const jsonLogic = require("json-logic-js");
 const { JSONPath } = require("jsonpath-plus");
+const Release = require("../models/release");
+const { Component } = require("../models/application");
+const { ObjectId } = require("mongoose");
+const { json } = require("express");
 
 class RulesEngine {
-  executeRule(rule, payload) {
-    // console.log(`Rule = ${rule}`)
-    var rule_result = false;
-    var r = rule.toObject();
-    var data = r.criteria.data;
-    var p = payload.toObject();
-    // console.log(`JSON data = ${data}`);
-    // console.log(`payload data = ${payload}`);
-    for (let k in data) {
-      // console.log(`k = ${data[k]}`);
-      var e = JSONPath({
-        flatten: true,
-        path: data[k],
-        json: payload,
-        wrap: false
-      });
-      // if (typeof e === "object" && e !== null) {
-      //   e = JSON.stringify(e);
-      // }
-      data[k] = e[0];
+  
+  async sendAction(action, event) {
+    var variables = {};
+    for (const [k, v] of Object.entries(action.data)) {
+      if (v.startsWith("$")) {
+        console.log(`in the if -> ${k}, ${v}`);
+        var e = JSONPath({
+          flatten: true,
+          path: v,
+          json: event,
+        });
+        variables[k] = e[0];
+      }
     }
-    console.log(`JSON data = ${JSON.stringify(data)}`);
-    console.log(`JSON rules = ${JSON.stringify(rule.criteria.apply)}`);
-    rule_result = jsonLogic.apply(
-      rule.criteria.apply,
-      data
-    );
-    console.log(`rule_result = ${rule_result}`);
-    return rule_result;
-  }
-
-  buildBody(action, event) {
-    var body = {};
-    action.body.forEach((element) => {
-      var k = element;
-      var v = JSONPath({ json: event, path: `$..${element}` })[0];
-      //   console.log(`${element} for k = ${k} and v = ${v}`);
-      body[k] = v;
+    const result = await axios({
+      method: action.method,
+      url: action.url,
+      data: variables,
+      headers: { "Content-Type": "application/json" },
     });
-    // console.log("body = ", body);
-    return body;
+    // console.log(result);
+    return result
   }
 
   async evaluateRules(event) {
-    const rules = await Rule.find({ event_type: event.type, active: true });
-    rules.forEach(async (rule) => {
-      //   var r = rule.toObject();
-      //   console.log("Rule = ", r);
-      if (this.executeRule(rule, event)) {
-        rule.action.forEach(async (a) => {
-          const body = this.buildBody(a, event);
-          const status = await axios.request({
-            url: a.url,
-            method: a.method.toLowerCase(),
-            data: body,
+    const release = await Release.findOne({ _id: `${event.release}` })
+    console.log(`component id => ${release.component}`)
+    const query = [
+      { $match: { _id: release.component } },
+      { $unwind: "$rules" },
+      {
+        $lookup: {
+          from: "rules",
+          localField: "rules.rule",
+          foreignField: "_id",
+          as: "function",
+        },
+      },
+      { $unwind: "$function" },
+      { $match: { "function.event_type": event.type } },
+      { $unwind: "$rules.actions" },
+      {
+        $lookup: {
+          from: "actions",
+          localField: "rules.actions",
+          foreignField: "_id",
+          as: "function.action",
+        },
+      },
+      { $unwind: "$function.action" },
+      { $project: { function: 1 } },
+    ];
+    
+    const functions = await Component.aggregate(query);
+    console.log(`functions => ${JSON.stringify(functions)}`)
+    functions.forEach(async (f) => {
+      var variables = {};
+      console.log(f.function.input)
+      for (const [k, v] of Object.entries(f.function.input)) {
+        if (v.startsWith("$")) {
+          console.log(`in the if -> ${k}, ${v}`);
+          var e = JSONPath({
+            flatten: true,
+            path: v,
+            json: event,
           });
-          // console.log("Status = ", status);
-
-          const ruleEvent = {
-            title: rule.title,
-            ruleId: rule._id,
-            url: a.url,
-            method: a.method.toLowerCase(),
-            body: body,
-            response: { status: status.status, text: status.statusText },
-          };
-
-          event.rules.push(ruleEvent);
-
-          const hmm = await event.save();
-          //   console.log(hmm);
-        });
+          variables[k] = e[0];
+        }
       }
-    });
+      console.log(variables);
+      console.log(`rule => ${JSON.stringify(f.function.criteria)}`)
+      var r = jsonLogic.apply(f.function.criteria, variables)
+      console.log(`rule result => ${r}`)
+      if (r) {
+        console.log(f.function.action)
+        var result = await this.sendAction(f.function.action, event)
+        event.rules.push({ "ruleId": f.function._id, "actionId": f.function.action._id, "status": result.status, "headers": result.headers, "config": result.config, "response": result.data })
+        await event.save();
+
+      }
+    })
   }
 }
 
